@@ -1,5 +1,7 @@
-cd /lugar
-ls -l
+#!/bin/bash
+# ls -l
+# chmod 700 bin-exemplos
+
 chmod 700 bin-exemplos
 ./bin-exemplos
 ./lexer teste.txt
