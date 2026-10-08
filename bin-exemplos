@@ -1,0 +1,5 @@
+#!/bin/bash
+flex --noyywrap lexer.lex
+gcc lex.yy.c -lfl -o lexer
+
+
