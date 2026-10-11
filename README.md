@@ -25,8 +25,7 @@
 
 ## To Fucking Do
 
-1. contabilizar tokens
-2. mudar o ṕrint dos parênteses abertos e fechados
-3. resolver o armazenamento dos tokens
-4. não considerar chaves "{}" como tokens
-
+[x] contabilizar tokens
+[x] mudar o ṕrint dos parênteses abertos e fechados
+[x] resolver o armazenamento dos tokens
+[x]  não considerar chaves "{}" como tokens

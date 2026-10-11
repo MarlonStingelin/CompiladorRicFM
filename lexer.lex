@@ -2,6 +2,16 @@
 /* ========================================================================== */
 /* Analisador Léxico - Trabalho Final (Gramática Python Simplificada)         */
 /* ========================================================================== */
+
+/*
+## To Fucking Do
+
+[x]. contabilizar tokens
+[x]. mudar o ṕrint dos parênteses abertos e fechados
+[x]. resolver o armazenamento dos tokens
+[x]. não considerar chaves "{}" como tokens
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -87,15 +97,24 @@ void registrar_token(const char *lexema, int linha, int coluna) {
 /* Função que processa a saída no formato exato solicitado */
 void imprimir_relatorio() {
     TokenNode *atual = tabela_simbolos;
+
     while (atual != NULL) {
-    printf("\033[94m\"%s\"\033[0m Reconhecido em: ", atual->lexema);
+    printf("\033[94m\"%s\"\033[0m\n\tReconhecido em: ", atual->lexema);
         Posicao *p = atual->pos_inicio;
+
         while (p != NULL) {
-            printf("[L:%d, C:%d]", p->linha, p->coluna);
+            printf("[%d,%d]", p->linha, p->coluna);
             if (p->prox != NULL) printf(", ");
             p = p->prox;
         }
-        printf(" Aparece \"%d\" vezes na entrada.\n", atual->contagem);
+        
+        if(atual->contagem == 1) {
+            printf("\033[36m\n\t(Aparece \"%d\" vez na entrada)\n", atual->contagem);
+        } else {
+            printf("\033[36m\n\t(Aparece \"%d\" vezes na entrada)\n", atual->contagem);
+        }
+        
+        
         atual = atual->prox;
     }
 }
@@ -135,6 +154,8 @@ ESPACO      [ ]+
 /* REGRAS LÉXICAS                                                             */
 /* ========================================================================== */
 %%
+
+"{"|"}" {}
 
 "if"|"else"|"while"|"for"|"in"|"def"|"return"|"import" {
     registrar_token(yytext, num_linhas, col_token);
@@ -202,7 +223,7 @@ int main(int argc, char **argv) {
     const char *COLOR_HEADER = "\033[1;32m";
 
     printf("\n%s=== ANALISADOR LEXICO ===%s\n", COLOR_HEADER, COLOR_RESET);
-    printf("\033[1;33m Formato das Posições: [Linha:\"L1\". Coluna:\"C1\"], ..., [Linha:\"Ln\". Coluna:\"Cn\"] \033[0m \n\n");
+    printf("\033[1;33m\nFormato das Posições: [Linha 1: 1, Coluna 1: 1], ..., [Linha n: n, Coluna n: n] \033[0m\n\n");
     imprimir_relatorio();
     printf("\n");
 
