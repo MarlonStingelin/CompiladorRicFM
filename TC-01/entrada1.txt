@@ -1,0 +1,6 @@
+# Gramática.
+# (Use ε, epsilon, vazio, null, '', "" o que preferir).
+
+S -> A B S | a A
+A -> ε | a
+B -> B b | c d

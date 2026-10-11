@@ -1,0 +1,8 @@
+# Gramática.
+# (Use ε, epsilon, vazio, null, '', "" o que preferir).
+
+E -> T E'
+E' -> +T E' | epsilon
+T -> F T'
+T' -> *F T' | epsilon
+F -> ( E ) | id

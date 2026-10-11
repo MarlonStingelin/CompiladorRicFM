@@ -1,0 +1,13 @@
+=== CONJUNTOS FIRST ===
+FIRST(E) = { (, id }
+FIRST(E') = { +T, ε }
+FIRST(F) = { (, id }
+FIRST(T) = { (, id }
+FIRST(T') = { *F, ε }
+
+=== CONJUNTOS FOLLOW ===
+FOLLOW(E) = { $, ) }
+FOLLOW(E') = { $, ) }
+FOLLOW(F) = { $, ), *F, +T }
+FOLLOW(T) = { $, ), +T }
+FOLLOW(T') = { $, ), +T }
