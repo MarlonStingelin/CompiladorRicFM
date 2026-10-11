@@ -489,8 +489,8 @@ char *yytext;
 
 [x]. contabilizar tokens
 [x]. mudar o ṕrint dos parênteses abertos e fechados
-[ ]. resolver o armazenamento dos tokens
-[ ]. não considerar chaves "{}" como tokens
+[x]. resolver o armazenamento dos tokens
+[x]. não considerar chaves "{}" como tokens
 */
 
 #include <stdio.h>
