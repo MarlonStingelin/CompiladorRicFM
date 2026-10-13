@@ -3,5 +3,5 @@
 ## Compilação
 
 ```bash
-python3 analisador.py entrada1.txt saida.txt
+python3 ex02-TC01-MSC-GHR.py entrada1.txt saida.txt
 ```

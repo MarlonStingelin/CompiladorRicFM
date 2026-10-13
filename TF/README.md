@@ -82,4 +82,3 @@ Obs.: Além dos terminais definidos, de forma explícita (por exemplo: "<=", "de
 
 Resumindo... INIDEBL = uma TABULAÇÃO e FIMDEBL = recuo de uma TABULAÇÃO.
 
-

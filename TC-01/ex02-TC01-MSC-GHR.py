@@ -1,3 +1,15 @@
+# Ex 02 do TC-01: Marlon S Colaço e Guilherme H Reinert
+
+# Instruções:
+# - Crie um documento em .txt com a gramatica, chamado entrada
+# - Separe todos os símbolos terminais e não terminais com espaços
+# - Use -> ou ::= como delimitadores  
+# - Use ε, epsilon, vazio, null, '', "" para representar epsilon
+# - Use | para separar regras
+
+# Comando para utilizar o Programa:
+# python analisador.py entrada.txt saida.txt
+
 import sys, os
 
 EPSILON = 'ε'
@@ -190,3 +202,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
