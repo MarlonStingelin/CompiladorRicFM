@@ -184,7 +184,7 @@ ESPACO      [ ]+
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 
-{NUMERO}{NUMERO}*{LETRA}({LETRA}|{DIGITO})* {
+{NUMERO}+{LETRA}({LETRA}|{DIGITO})* {
     registrar_token(yytext, num_linhas, col_token, 0);
 }
 
