@@ -1,5 +1,10 @@
 #!/bin/bash
 
-chmod 700 bin-exemplos
-./bin-exemplos
-./lexer teste.txt
+# chmod 700 bin-exemplo
+# ./bin-exemplo
+# ./lexer exemplo.txt
+
+chmod 700 bin-erro
+./bin-erro
+./lexer erro.txt
+

@@ -38,6 +38,7 @@ typedef struct Posicao {
 typedef struct TokenNode {
     char *lexema;
     int contagem;
+    int is_aceito;
     Posicao *pos_inicio;
     Posicao *pos_fim;
     struct TokenNode *prox;
@@ -46,7 +47,7 @@ typedef struct TokenNode {
 TokenNode *tabela_simbolos = NULL;
 
 /* Insere o token mantendo a lista em ordem alfabética */
-void registrar_token(const char *lexema, int linha, int coluna) {
+void registrar_token(const char *lexema, int linha, int coluna, int aceito) {
     TokenNode *atual = tabela_simbolos;
     TokenNode *anterior = NULL;
 
@@ -67,15 +68,17 @@ void registrar_token(const char *lexema, int linha, int coluna) {
         } else if (cmp > 0) {
             /* Passou do ponto de inserção alfabética, quebra para inserir aqui */
             break;
-        }
+        } else {
+        }        
         anterior = atual;
         atual = atual->prox;
     }
-
+    
     /* Não encontrou: cria um novo nó (Token inédito) */
     TokenNode *novo_no = (TokenNode *)malloc(sizeof(TokenNode));
     novo_no->lexema = strdup(lexema);
     novo_no->contagem = 1;
+    novo_no->is_aceito = aceito;
     
     Posicao *nova_pos = (Posicao *)malloc(sizeof(Posicao));
     nova_pos->linha = linha;
@@ -94,27 +97,37 @@ void registrar_token(const char *lexema, int linha, int coluna) {
     }
 }
 
+void imprimir_token(TokenNode *no) {
+    Posicao *p = no->pos_inicio;
+    while (p != NULL) {
+        printf("[%d,%d]", p->linha, p->coluna);
+        if (p->prox != NULL) printf(", ");
+        p = p->prox;
+    }
+    if (no->contagem == 1) {
+        printf("\033[0m\n\t(Aparece \"%d\" vez na entrada)\n", no->contagem);
+    } else {
+        printf("\033[0m\n\t(Aparece \"%d\" vezes na entrada)\n", no->contagem);
+    }
+
+}
+
 /* Função que processa a saída no formato exato solicitado */
 void imprimir_relatorio() {
     TokenNode *atual = tabela_simbolos;
-
     while (atual != NULL) {
-    printf("\033[94m\"%s\"\033[0m\n\tReconhecido em: ", atual->lexema);
-        Posicao *p = atual->pos_inicio;
-
-        while (p != NULL) {
-            printf("[%d,%d]", p->linha, p->coluna);
-            if (p->prox != NULL) printf(", ");
-            p = p->prox;
-        }
-        
-        if(atual->contagem == 1) {
-            printf("\033[36m\n\t(Aparece \"%d\" vez na entrada)\n", atual->contagem);
-        } else {
-            printf("\033[36m\n\t(Aparece \"%d\" vezes na entrada)\n", atual->contagem);
-        }
-        
-        
+        if (atual->is_aceito == 1){
+                printf("\033[94m\"%s\"\033[36m\n\tReconhecido em: ", atual->lexema);
+                imprimir_token(atual);
+            }
+        atual = atual->prox;
+    }
+    atual = tabela_simbolos;
+    while (atual != NULL) {
+        if (atual->is_aceito == 0){
+                printf("\033[91m\"%s\"\033[31m\n\tNão reconhecido em: ", atual->lexema);
+                imprimir_token(atual);
+            }
         atual = atual->prox;
     }
 }
@@ -134,6 +147,8 @@ void liberar_memoria() {
         free(temp_no->lexema);
         free(temp_no);
     }
+
+    tabela_simbolos = NULL;
 }
 %}
 
@@ -158,31 +173,31 @@ ESPACO      [ ]+
 "{"|"}" {}
 
 "if"|"else"|"while"|"for"|"in"|"def"|"return"|"import" {
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 1);
 }
 
 "=="|"!="|"<"|">"|"<="|">=" {
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 1);
 }
 
 "="|"+"|"-"|"*"|"/"|":"|","|"("|")" {
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 1);
 }
 
-{NUMERO}({LETRA}|{DIGITO})+ {
-    registrar_token(yytext, num_linhas, col_token);
+{NUMERO}{NUMERO}*{LETRA}({LETRA}|{DIGITO})* {
+    registrar_token(yytext, num_linhas, col_token, 0);
 }
 
 {NUMERO} {
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 1);
 }
 
 {NOME} {
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 1);
 }
 
 {TABULACAO} {
-    registrar_token("<TAB>", num_linhas, col_token);
+    registrar_token("<TAB>", num_linhas, col_token, 1);
     num_colunas += 3;
 }
 
@@ -197,7 +212,7 @@ ESPACO      [ ]+
 
 . {
     /* Captura todos os erros genéricos, incluindo as chaves { e } */
-    registrar_token(yytext, num_linhas, col_token);
+    registrar_token(yytext, num_linhas, col_token, 0);
 }
 
 %%
