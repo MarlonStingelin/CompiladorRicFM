@@ -7,7 +7,11 @@
 
 ## Entrega
 
-- alguma data ae
+**Data**: 22/11/2026
+
+### Arquivo FLEX
+
+**Data**: Não estabelecida.
 
 ## Compilação
 
@@ -78,7 +82,6 @@ chmod 700 run
 <numero> ::= NUMERO
 ```
 
-Obs.: Além dos terminais definidos, de forma explícita (por exemplo: "<=", "def", etc.), existem terminais que possuem forma "variada" (NUMERO, NOME), bem como aqueles que tem um nome, para facilitar o entendimento (INIDEBL e FIMDEBL, que representam o início e fim de um bloco de comandos, através de uma INDENTAÇÃO, e o final de um bloco de comandos, com o recuo de uma INDENTAÇÃO, respectivamente).
+**Obs.**: Além dos terminais definidos, de forma explícita (por exemplo: "<=", "def", etc.), existem terminais que possuem forma "variada" (NUMERO, NOME), bem como aqueles que tem um nome, para facilitar o entendimento (INIDEBL e FIMDEBL, que representam o início e fim de um bloco de comandos, através de uma INDENTAÇÃO, e o final de um bloco de comandos, com o recuo de uma INDENTAÇÃO, respectivamente).
 
 Resumindo... INIDEBL = uma TABULAÇÃO e FIMDEBL = recuo de uma TABULAÇÃO.
-
