@@ -488,15 +488,6 @@ char *yytext;
 /* Analisador Léxico - Trabalho Final (Gramática Python Simplificada)         */
 /* ========================================================================== */
 
-/*
-## To Fucking Do
-
-[x]. contabilizar tokens
-[x]. mudar o ṕrint dos parênteses abertos e fechados
-[x]. resolver o armazenamento dos tokens
-[x]. não considerar chaves "{}" como tokens
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -635,14 +626,14 @@ void liberar_memoria() {
 
     tabela_simbolos = NULL;
 }
-#line 639 "lex.yy.c"
+#line 630 "lex.yy.c"
 /* ========================================================================== */
 /* DEFINIÇÕES                                                                 */
 /* ========================================================================== */
 /* ========================================================================== */
 /* REGRAS LÉXICAS                                                             */
 /* ========================================================================== */
-#line 646 "lex.yy.c"
+#line 637 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -859,10 +850,10 @@ YY_DECL
 		}
 
 	{
-#line 171 "lexer.lex"
+#line 162 "lexer.lex"
 
 
-#line 866 "lex.yy.c"
+#line 857 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -921,54 +912,54 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 173 "lexer.lex"
+#line 164 "lexer.lex"
 {}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 175 "lexer.lex"
+#line 166 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 179 "lexer.lex"
+#line 170 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 183 "lexer.lex"
+#line 174 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 187 "lexer.lex"
+#line 178 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 0);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 191 "lexer.lex"
+#line 182 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 195 "lexer.lex"
+#line 186 "lexer.lex"
 {
     registrar_token(yytext, num_linhas, col_token, 1);
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 199 "lexer.lex"
+#line 190 "lexer.lex"
 {
     registrar_token("<TAB>", num_linhas, col_token, 1);
     num_colunas += 3;
@@ -977,7 +968,7 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 204 "lexer.lex"
+#line 195 "lexer.lex"
 {
     num_linhas++;
     num_colunas = 1;
@@ -985,14 +976,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 209 "lexer.lex"
+#line 200 "lexer.lex"
 {
     /* Ignorados */
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 213 "lexer.lex"
+#line 204 "lexer.lex"
 {
     /* Captura todos os erros genéricos, incluindo as chaves { e } */
     registrar_token(yytext, num_linhas, col_token, 0);
@@ -1000,10 +991,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 218 "lexer.lex"
+#line 209 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 1007 "lex.yy.c"
+#line 998 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2008,13 +1999,16 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 218 "lexer.lex"
+#line 209 "lexer.lex"
 
 /* ========================================================================== */
 /* CÓDIGOS ESPECÍFICOS (MAIN)                                                 */
 /* ========================================================================== */
 
-int main(int argc, char **argv) {
+int main( argc, argv )
+int argc;
+char **argv;
+{
     ++argv, --argc;
     if (argc > 0) {
         yyin = fopen(argv[0], "r");

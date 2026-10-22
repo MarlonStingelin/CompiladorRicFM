@@ -3,15 +3,6 @@
 /* Analisador Léxico - Trabalho Final (Gramática Python Simplificada)         */
 /* ========================================================================== */
 
-/*
-## To Fucking Do
-
-[x]. contabilizar tokens
-[x]. mudar o ṕrint dos parênteses abertos e fechados
-[x]. resolver o armazenamento dos tokens
-[x]. não considerar chaves "{}" como tokens
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -220,7 +211,10 @@ ESPACO      [ ]+
 /* CÓDIGOS ESPECÍFICOS (MAIN)                                                 */
 /* ========================================================================== */
 
-int main(int argc, char **argv) {
+int main( argc, argv )
+int argc;
+char **argv;
+{
     ++argv, --argc;
     if (argc > 0) {
         yyin = fopen(argv[0], "r");

@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# chmod 700 bin-exemplo
-# ./bin-exemplo
-# ./lexer exemplo.txt
+chmod 700 bin-exemplo
+./bin-exemplo
+./lexer exemplo.txt
 
-chmod 700 bin-erro
-./bin-erro
-./lexer erro.txt
+bison -d bison.y
+flex lexer.lex
+gcc bison.tab.c lex.yy.c -o out -lm
 
+./out

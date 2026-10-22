@@ -5,20 +5,35 @@
 - Guilherme Hoerning Reinert
 - Marlon Stingelin Colaco
 
-## Entrega
-
-**Data**: 22/11/2026
-
-### Arquivo FLEX
-
-**Data**: Não estabelecida.
-
 ## Compilação
 
 ```bash
 chmod 700 run
 ./run
 ```
+
+```bash
+clear && ./run
+```
+
+## Etapa 1 - Arquivo FLEX
+
+**Data**: Não estabelecida.
+
+### Entrega
+
+**Data**: 22/11/2026
+
+## Etapa 2 -  Primeiros Resultados - FLEX + BISON
+
+Apresentar os primeiros resultados obtidos para a combinação FLEX + BISON. O foco está na somatória de resultados do FLEX e do BISON, ou seja, que vocês sejam capazes de escrever um código, considerado a linguagem alvo (do TF), e o resultado esperado do compilador está na apresentação de erros léxicos e sintáticos.
+
+**IMPORTANTE**: irei considerar a assertividade, quanto as informações relacionadas com os erros apontados, e se todos eles estão sendo identificados.
+
+### Entrega
+
+Arquivos esperados: FLEX (arquivo `.lex`) e BISON (`.y`). Também deve ser entregue um conjunto de códigos, escritos na linguagem alvo do trabalho, e que permitirão avaliar o desempenho alcançado.
+
 
 ## Gramática (simplificada) de Python - base para o TF
 
