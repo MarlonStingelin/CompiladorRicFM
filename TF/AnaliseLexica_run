@@ -4,8 +4,8 @@ chmod 700 bin-exemplo
 ./bin-exemplo
 ./lexer exemplo.txt
 
-bison -d bison.y
+bison -d parser.y
 flex lexer.lex
-gcc bison.tab.c lex.yy.c -o out -lm
+gcc parser.tab.c lex.yy.c -o out -lm
 
 ./out
