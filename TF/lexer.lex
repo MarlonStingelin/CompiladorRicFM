@@ -150,10 +150,6 @@ void liberar_memoria() {
 %option noyywrap
 %x INDENT
 
-/* ========================================================================== */
-/* DEFINIÇÕES                                                                 */
-/* ========================================================================== */
-
 DIGITO      [0-9]
 LETRA       [a-zA-Z_]
 NUMERO      {DIGITO}+("."{DIGITO}+)?
@@ -162,9 +158,6 @@ TABULACAO   \t
 NOVALINHA   \n
 ESPACO      [ ]+
 
-/* ========================================================================== */
-/* REGRAS LÉXICAS                                                             */
-/* ========================================================================== */
 %%
 %{
     /* Se houver recuos de bloco pendentes para entregar ao Bison, envia um por vez */
