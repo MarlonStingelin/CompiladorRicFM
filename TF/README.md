@@ -43,7 +43,6 @@ Arquivos esperados: FLEX (arquivo `.lex`) e BISON (`.y`). Também deve ser entre
 <lista_comandos> ::= comando
             /* Alterado para usar recursão a esquerda */
             | <lista_comandos comando>
-            ;
 
 <comando> ::= <atribuicao>
             | <expressao>
