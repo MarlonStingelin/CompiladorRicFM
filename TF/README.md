@@ -1,5 +1,7 @@
 # TF
 
+Compilador desenvolvido em C utilizando FLEX e BISON para uma gramática simplificada de Python (Pythonhol).
+
 ## Equipe
 
 - Guilherme Hoerning Reinert
@@ -16,33 +18,48 @@ chmod 700 run
 clear && ./run
 ```
 
+## Compilação Manual
+
+```bash
+bison -d parser.y
+flex lexer.lex
+gcc parser.tab.c lex.yy.c -o compilador -lm
+```
+
+```bash
+./compilador teste.py
+```
+
 ## Etapa 1 - Arquivo FLEX
 
-**Data**: Não estabelecida.
-
-### Entrega
-
-**Data**: 22/11/2026
+Implementação (lexer.lex)
+Reconhecimento de palavras-chave, operadores aritméticos e relacionais (T_OP_REL), separadores, números (NUMERO) e identificadores (NOME).
+Tabela de símbolos em lista encadeada ordenada alfabeticamente, agrupando coordenadas [L, C] e contagem de ocorrências.
+Controle de escopo por indentação (%x INDENT), gerando automaticamente INIDEBL e FIMDEBL (incluindo recuos múltiplos e fechamento em <<EOF>>).
+Detecção de erros léxicos para identificadores iniciados por números (ex.: 1a) e caracteres inválidos (ex.: {, }, @).
 
 ## Etapa 2 -  Primeiros Resultados - FLEX + BISON
 
 Apresentar os primeiros resultados obtidos para a combinação FLEX + BISON. O foco está na somatória de resultados do FLEX e do BISON, ou seja, que vocês sejam capazes de escrever um código, considerado a linguagem alvo (do TF), e o resultado esperado do compilador está na apresentação de erros léxicos e sintáticos.
-
-**IMPORTANTE**: irei considerar a assertividade, quanto as informações relacionadas com os erros apontados, e se todos eles estão sendo identificados.
+IMPORTANTE: irei considerar a assertividade, quanto as informações relacionadas com os erros apontados, e se todos eles estão sendo identificados.
+Implementação (parser.y)
+Gramática BNF com recursão à esquerda em lista_comandos para evitar estouro de pilha.
+Resolução de conflitos shift/reduce via declaração de precedência (%left).
+Diagnósticos detalhados com %define parse.error verbose.
+Registro e exibição de erros sintáticos em lista encadeada (linha, coluna, token lido e diagnóstico), com limite de segurança de 50 erros e proteção contra loop em EOF (YYABORT).
 
 ### Entrega
 
-Arquivos esperados: FLEX (arquivo `.lex`) e BISON (`.y`). Também deve ser entregue um conjunto de códigos, escritos na linguagem alvo do trabalho, e que permitirão avaliar o desempenho alcançado.
-
+Arquivos esperados: FLEX (arquivo .lex) e BISON (.y). Também deve ser entregue um conjunto de códigos, escritos na linguagem alvo do trabalho, e que permitirão avaliar o desempenho alcançado.
 
 ## Gramática (simplificada) de Python - base para o TF
 
 ```c
 <programa> ::= <lista_comandos>
 
-<lista_comandos> ::= comando
+<lista_comandos> ::= <comando>
             /* Alterado para usar recursão a esquerda */
-            | <lista_comandos comando>
+            | <lista_comandos> <comando>
 
 <comando> ::= <atribuicao>
             | <expressao>
