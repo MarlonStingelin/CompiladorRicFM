@@ -40,8 +40,7 @@ int erros_sintaticos = 0;
 void registrar_erro_sintatico(int linha, int coluna, const char *token, const char *msg) {
     /* Trava de segurança: impede que um loop infinito consuma a RAM do PC */
     if (erros_sintaticos >= 50) {
-        fprintf(stderr, "\n\033[1;31m[ABORTADO] Limite de 50 erros sintaticos atingido (evitando travamento de memoria).\033[0m\n");
-        exit(1);
+        return;
     }
 
     ErroSintatico *novo = (ErroSintatico *)malloc(sizeof(ErroSintatico));
@@ -82,7 +81,6 @@ void imprimir_erros_sintaticos(void) {
 
 /* Melhoria no diagnóstico de erros sintáticos */
 %define parse.error verbose
-%define parse.lac full
 
 /* Declaração dos Tokens Terminais */
 %token T_IF T_ELSE T_WHILE T_FOR T_IN T_DEF T_RETURN T_IMPORT
@@ -127,9 +125,6 @@ comando:
     | error {
         /* Se chegou no fim do arquivo (0 ou YYEOF), encerra o parser */
         if (yychar <= 0) YYABORT;
-        /* Descarta o token atual para obrigar o parser a avançar */
-        yyclearin;
-        yyerrok;
     }
     ;
 
