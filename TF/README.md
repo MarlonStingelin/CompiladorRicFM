@@ -48,6 +48,20 @@ Resolução de conflitos shift/reduce via declaração de precedência (%left).
 Diagnósticos detalhados com %define parse.error verbose.
 Registro e exibição de erros sintáticos em lista encadeada (linha, coluna, token lido e diagnóstico), com limite de segurança de 50 erros e proteção contra loop em EOF (YYABORT).
 
+#### Etapa 3 - Análise Semântica (FLEX + BISON)
+Integração de valores e ações semânticas diretamente nas regras do BISON (`parser.y`) em conjunto com o FLEX (`lexer.lex`), sem construção de AST, com foco na validação lógica e de escopo do código-fonte.
+
+##### Funcionalidades implementadas
+Passagem de valores (`%union` / `yylval`):** envio de valores numéricos (`double`) e identificadores (`char*`) do FLEX para o BISON.
+Tabela de Símbolos Semântica:** controle de identificadores (variáveis, funções, parâmetros e módulos) com separação entre escopo global (`0`) e escopo local de funções (`1`).
+ *Validações semânticas:*
+  Uso de variável antes de ser declarada/atribuída.
+  Divisão por zero em expressões aritméticas.
+  Parâmetros duplicados na assinatura de funções (`def`).
+  Uso de `return` fora do escopo de uma função.
+  Registro automático da variável de iteração no `for` e de módulos no `import`.
+*Relatório Semântico:* listagem numerada de erros com linha, coluna e descrição, exibida após o relatório sintático.
+
 ### Entrega
 
 Arquivos esperados: FLEX (arquivo .lex) e BISON (.y). Também deve ser entregue um conjunto de códigos, escritos na linguagem alvo do trabalho, e que permitirão avaliar o desempenho alcançado.

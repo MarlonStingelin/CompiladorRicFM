@@ -30,7 +30,9 @@ int pendentes_dedent = 0;
 
 #define YY_USER_ACTION \
     col_token = num_colunas; \
-    num_colunas += yyleng;
+    num_colunas += yyleng; \
+    yylloc.first_line = num_linhas; \
+    yylloc.first_column = col_token;
 
 /* ========================================================================== */
 /* TABELA DE SÍMBOLOS                                                         */
@@ -232,11 +234,13 @@ ESPACO      [ ]+
 
 {NUMERO} {
     registrar_token(yytext, num_linhas, col_token, 1);
+    yylval.dval = atof(yytext);
     return T_NUMERO;
 }
 
 {NOME} {
     registrar_token(yytext, num_linhas, col_token, 1);
+    yylval.sval = strdup(yytext);
     return T_IDENTIFICADOR;
 }
 
