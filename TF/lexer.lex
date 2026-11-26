@@ -22,6 +22,7 @@ const char *COLOR_DARK_RED = "\033[31m"; /* Veremlho Escuro */
 int num_linhas = 1;
 int num_colunas = 1;
 int col_token = 1;
+int erros_lexicos = 0;
 
 /* Controle de indentação para gerar INIDEBL e FIMDEBL */
 int nivel_indent_atual = 0;
@@ -56,6 +57,10 @@ typedef struct TokenNode {
 TokenNode *tabela_simbolos = NULL;
 
 void registrar_token(const char *lexema, int linha, int coluna, int aceito) {
+    if (aceito == 0) {
+        erros_lexicos++;
+    }
+
     TokenNode *atual = tabela_simbolos;
     TokenNode *anterior = NULL;
 
@@ -214,6 +219,7 @@ ESPACO      [ ]+
 
 "=="|"!="|"<"|">"|"<="|">=" {
     registrar_token(yytext, num_linhas, col_token, 1);
+    yylval.sval = strdup(yytext);
     return T_OP_REL;
 }
 
